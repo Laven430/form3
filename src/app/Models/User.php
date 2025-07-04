@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'current_weight',
+        'target_weight',
     ];
 
     /**
@@ -40,5 +42,23 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'current_weight' => 'decimal:1',
+        'target_weight' => 'decimal:1',
     ];
+
+    /**
+     * このユーザーに紐づく体重目標を取得
+     */
+    public function weightTarget()
+    {
+        return $this->hasOne(WeightTarget::class);
+    }
+
+    /**
+     * このユーザーに紐づく体重ログを取得
+     */
+    public function weightLogs()
+    {
+        return $this->hasMany(WeightLog::class);
+    }
 }
